@@ -172,12 +172,12 @@ export default {
     }
 
     .input {
-      width: 74%;
     }
 
     .send-btn {
       padding-left: 16px;
       padding-right: 16px;
+      width: 80px;
     }
   }
 }

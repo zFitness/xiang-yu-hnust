@@ -9,18 +9,22 @@
     <div class="form">
       <div class="form-name">
         <p>昵称</p>
-        <van-field class="input" v-model="userInfo.nickname" left-icon="user-o" placeholder="请输入用户名" />
+        <van-field class="input" v-model="nickname" left-icon="user-o" placeholder="请输入用户名" />
+      </div>
+      <div class="form-name">
+        <p>密码</p>
+        <van-field class="input" type="password" v-model="password" left-icon="user-o" placeholder="请输入密码" />
       </div>
       <div class="form-sex">
         <p>性别</p>
-        <van-radio-group v-model="userInfo.sex" direction="horizontal" class="sex-item-wrapper">
+        <van-radio-group v-model="gender" direction="horizontal" class="sex-item-wrapper">
           <div class="sex-item">
             <van-radio name="男">男</van-radio>
-            <img src="https://img.zmblog.wang/blog/20201214/urB3BW6822nv.png?imageslim" width="67" height="67" alt="">
+            <img :src="maleAvatar" width="67" height="67" alt="">
           </div>
           <div class="sex-item">
             <van-radio name="女">女</van-radio>
-            <img src="https://img.zmblog.wang/blog/20201214/8evAxRKe1K6M.png?imageslim" width="67" height="67" alt="">
+            <img :src="femaleAvatar" width="67" height="67" alt="">
           </div>
         </van-radio-group>
       </div>
@@ -42,28 +46,41 @@ export default {
   name: 'Register',
   data() {
     return {
-      userInfo: {
-        nickname: '',
-        sex: '男'
-      }
+      maleAvatar: 'https://img.zmblog.wang/blog/20201214/urB3BW6822nv.png?imageslim',
+      femaleAvatar: 'https://img.zmblog.wang/blog/20201214/8evAxRKe1K6M.png?imageslim',
+      nickname: '',
+      gender: '男',
+      password: '',
+    }
+  },
+  computed: {
+    avatar: function() {
+      return this.gender == '男' ? this.maleAvatar : this.femaleAvatar;
     }
   },
   beforeRouteEnter(to, from, next) {
     const { loginStatus } = store.getters
     if (loginStatus == 1) {
-      next('/')
+      next()
     } else {
       next()
     }
   },
   methods: {
     createUser() {
-      if (this.userInfo.nickname != '') {
-        store.dispatch('user/registerUser', this.userInfo).then(data => {
+      if (this.nickname != '' && this.password != '') {
+        let userInfo = {
+          'nickname': this.nickname,
+          'password': this.password,
+          'avatar': this.avatar,
+          'gender': this.gender,
+          'email': ''
+        }
+        store.dispatch('user/registerUser', userInfo).then(data => {
           this.$router.push('/')
         })
       } else {
-        Toast.fail('请填写昵称');
+        Toast.fail('请填写完整');
       }
 
     }

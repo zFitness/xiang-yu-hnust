@@ -4,10 +4,10 @@
       <div class="info">
         <div class="head_card_info">
           <div class="name">{{userInfo.nickname}}</div>
-          <div class="num">UserId：111</div>
+          <div class="num">email：{{userInfo.email}}</div>
         </div>
         <div class="img">
-          <van-image round width="1.5rem" height="1.5rem" src="https://img.zmblog.wang/blog/20201214/urB3BW6822nv.png?imageslim" />
+          <van-image round width="1.5rem" height="1.5rem" :src="userInfo.avatar" />
         </div>
 
       </div>

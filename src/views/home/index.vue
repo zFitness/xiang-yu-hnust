@@ -5,7 +5,7 @@
       <h3>聊天</h3>
 
       <van-button icon="friends-o" type="info" color="btn" size="small" class="btn" @click="handlePeopleClick">
-        10
+        {{count}}
       </van-button>
     </div>
     <div class="wrapper">
@@ -26,20 +26,45 @@ import { Toast } from 'vant';
 export default {
   data() {
     return {
-
+      count: 0,
+      timer: null
     }
   },
 
   computed: {},
 
-  mounted() { },
-
+  mounted() {
+    this.getOnlineCount()
+    this.timer = setInterval(() => {
+      this.getOnlineCount()
+    }, 5000)
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
+  },
   methods: {
     handlePeopleClick() {
       Toast({
-        message: '在线人数：10',
+        message: `在线人数：${this.count}`,
         position: 'bottom'
       });
+    },
+    getOnlineCount() {
+      let message = {
+        type: 'getCount',
+      }
+      this.handleMsg(JSON.stringify(message));
+    },
+    handleMsg(msg) {
+      let that = this;
+      if (that.$global.ws && that.$global.ws.readyState == 1) {
+        console.log("发送信息", msg);
+        that.$global.ws.send(msg);
+      }
+      that.$global.ws.onmessage = function(res) {
+        console.log("收到服务器内容", res);
+        that.count = res.data
+      };
     }
   }
 }

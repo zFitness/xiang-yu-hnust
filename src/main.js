@@ -26,6 +26,9 @@ import '@/assets/iconfont/iconfont.css'
 // 授权
 import '@/router/permission'
 
+// websocket
+import global from '@/utils/global'
+Vue.prototype.$global = global
 // filters
 import './filters'
 Vue.config.productionTip = false

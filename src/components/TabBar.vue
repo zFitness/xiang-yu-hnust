@@ -1,5 +1,5 @@
 <template>
-  <van-tabbar fixed route v-model="active" @change="handleChange" class="tabbar">
+  <van-tabbar fixed route class="tabbar">
     <van-tabbar-item icon="chat-o" to="/home"></van-tabbar-item>
     <van-tabbar-item icon="user-o" to="/profile"></van-tabbar-item>
   </van-tabbar>
@@ -8,31 +8,19 @@
 export default {
   name: 'TabBar',
   props: {
-    defaultActive: {
-      type: Number,
-      default: 0
-    },
     data: {
-      type: Array,
-      default: () => {
-        return []
-      }
     }
   },
   data() {
     return {
-      active: this.defaultActive
+      active: 0
     }
   },
   methods: {
-    handleChange(value) {
-      this.$emit('change', value)
-    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .tabbar {
   height: 48px;

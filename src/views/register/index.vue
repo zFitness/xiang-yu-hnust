@@ -61,7 +61,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     const { loginStatus } = store.getters
     if (loginStatus == 1) {
-      next()
+      next('/')
     } else {
       next()
     }

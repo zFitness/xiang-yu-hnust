@@ -7,7 +7,7 @@
       <router-view v-else></router-view>
     </div>
 
-    <TabBar :data="tabbars" @change="handleChange" />
+    <TabBar />
 
   </div>
 </template>
@@ -40,9 +40,6 @@ export default {
     TabBar
   },
   methods: {
-    handleChange(v) {
-      console.log('tab value:', v)
-    }
   }
 }
 </script>

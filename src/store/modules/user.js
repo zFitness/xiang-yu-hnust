@@ -9,6 +9,7 @@ import {
   loadToken,
   loadUserInfo
 } from '@/utils/cache'
+import { register } from '@/api/user'
 
 const state = {
   loginStatus: loadLoginStatus(), // 登录状态
@@ -32,11 +33,18 @@ const actions = {
   // 注册用户，保存到本地
   registerUser({ commit, dispatch }, userInfo) {
     return new Promise((resolve, reject) => {
-      // 存用户信息，token
-      dispatch('setLoginStatus', 1)
-      commit('SET_USERINFO', saveUserInfo(userInfo))
-      commit('SET_TOKEN', saveToken('xxx'))
-      resolve('success')
+      register(userInfo)
+        .then(resp => {
+          console.log(resp)
+          // 存用户信息，token
+          dispatch('setLoginStatus', 1)
+          commit('SET_USERINFO', saveUserInfo(resp.data.userInfo))
+          commit('SET_TOKEN', saveToken('xxx'))
+          resolve('success')
+        })
+        .catch(err => {
+          reject(err)
+        })
     })
   },
   // 设置状态

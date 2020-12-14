@@ -1,14 +1,133 @@
 <template>
-  <div>注册</div>
+  <div class="register-container">
+    <div class="index-title">
+      <h3>注册</h3>
+    </div>
+    <div class="title-img">
+      <img src="https://img.zmblog.wang/blog/20201214/VhSAHxLBxSfb.png?imageslim" width="250px" alt="">
+    </div>
+    <div class="form">
+      <div class="form-name">
+        <p>昵称</p>
+        <van-field class="input" v-model="userInfo.nickname" left-icon="user-o" placeholder="请输入用户名" />
+      </div>
+      <div class="form-sex">
+        <p>性别</p>
+        <van-radio-group v-model="userInfo.sex" direction="horizontal" class="sex-item-wrapper">
+          <div class="sex-item">
+            <van-radio name="男">男</van-radio>
+            <img src="https://img.zmblog.wang/blog/20201214/urB3BW6822nv.png?imageslim" width="67" height="67" alt="">
+          </div>
+          <div class="sex-item">
+            <van-radio name="女">女</van-radio>
+            <img src="https://img.zmblog.wang/blog/20201214/8evAxRKe1K6M.png?imageslim" width="67" height="67" alt="">
+          </div>
+        </van-radio-group>
+      </div>
+    </div>
+
+    <div class="register-btn">
+      <van-button size="large" class="btn" @click="createUser">创建</van-button>
+    </div>
+  </div>
 </template>
 
 
 <script>
-export default {
+import store from '@/store'
+import { Toast } from 'vant';
 
+
+export default {
+  name: 'Register',
+  data() {
+    return {
+      userInfo: {
+        nickname: '',
+        sex: '男'
+      }
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    const { loginStatus } = store.getters
+    if (loginStatus == 1) {
+      next('/')
+    } else {
+      next()
+    }
+  },
+  methods: {
+    createUser() {
+      if (this.userInfo.nickname != '') {
+        store.dispatch('user/registerUser', this.userInfo).then(data => {
+          this.$router.push('/')
+        })
+      } else {
+        Toast.fail('请填写昵称');
+      }
+
+    }
+  }
 }
 </script>
 
 
 <style lang="scss" scoped>
+.register-container {
+  height: 100%;
+  .index-title {
+    height: 64px;
+    padding: 0 0.64rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn {
+      font-size: 14px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+  }
+  .title-img {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .form {
+    padding: 0.64rem;
+    .form-name {
+      p {
+        font-size: 16px;
+      }
+      .input {
+        background: #ededed;
+        border-radius: 24px;
+      }
+    }
+    .sex-item-wrapper {
+      display: flex;
+      justify-content: space-around;
+    }
+    .form-sex {
+      p {
+        font-size: 16px;
+      }
+      .sex-item {
+        display: flex;
+      }
+    }
+  }
+
+  .register-btn {
+    text-align: center;
+    margin-top: 30px;
+    .btn {
+      background: $m-primary;
+      color: #fff;
+      font-size: 18px;
+      width: 85%;
+      border-radius: 40px;
+    }
+  }
+}
 </style>

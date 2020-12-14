@@ -23,6 +23,9 @@ import 'lib-flexible/flexible.js'
 
 import '@/assets/iconfont/iconfont.css'
 
+// 授权
+import '@/router/permission'
+
 // filters
 import './filters'
 Vue.config.productionTip = false

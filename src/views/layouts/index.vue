@@ -1,14 +1,14 @@
 <template>
-  <div class="app-container">
+  <div class="layout">
     <div class="layout-content">
       <keep-alive v-if="$route.meta.keepAlive">
         <router-view></router-view>
       </keep-alive>
       <router-view v-else></router-view>
     </div>
-    <div class="layout-footer">
-      <TabBar :data="tabbars" @change="handleChange" />
-    </div>
+
+    <TabBar :data="tabbars" @change="handleChange" />
+
   </div>
 </template>
 
@@ -46,3 +46,13 @@ export default {
   }
 }
 </script>
+
+
+<style lang="scss" scoped>
+.layout {
+  height: 100%;
+  .layout-content {
+    height: calc(100% - 48px);
+  }
+}
+</style>

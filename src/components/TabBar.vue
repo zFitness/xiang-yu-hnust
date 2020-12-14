@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <van-tabbar fixed route v-model="active" @change="handleChange">
-      <van-tabbar-item v-for="(item, index) in data" :to="item.to" :icon="item.icon" :key="index">
-        {{ item.title }}
-      </van-tabbar-item>
-    </van-tabbar>
-  </div>
+  <van-tabbar fixed route v-model="active" @change="handleChange" class="tabbar">
+    <van-tabbar-item icon="chat-o" to="/home"></van-tabbar-item>
+    <van-tabbar-item icon="user-o" to="/profile"></van-tabbar-item>
+  </van-tabbar>
 </template>
 <script>
 export default {
@@ -37,6 +34,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.tabbar {
+  height: 48px;
+  background: #ededed;
+}
 h3 {
   margin: 40px 0 0;
 }

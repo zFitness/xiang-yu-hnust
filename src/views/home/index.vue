@@ -1,39 +1,32 @@
 <!-- home -->
 <template>
   <div class="index-container">
-    <div class="warpper">
-      <h1 class="demo-home__title"><img src="https://www.sunniejs.cn/static/weapp/logo.png" /><span> VUE H5开发模板</span></h1>
-      <h2 class="demo-home__desc">
-        A vue h5 template with Vant UI
-      </h2>
+    <div class="index-title">
+      <h3>聊天</h3>
+
+      <van-button icon="friends-o" type="info" color="btn" size="small" class="btn" @click="handlePeopleClick">
+        10
+      </van-button>
     </div>
-    <van-cell icon="success" v-for="item in list" :key="item" :title="item" />
+    <div class="wrapper">
+      <div class="new-bg">
+        <img class="img" src="https://img.zmblog.wang/blog/20201214/kFYutJ9gP6Fv.png?imageslim" alt="">
+        <p>开始一个新的聊天</p>
+      </div>
+
+    </div>
+    <div class="start-btn">
+      <van-button size="large" class="btn" to="/chat">快速匹配</van-button>
+    </div>
   </div>
 </template>
 
 <script>
+import { Toast } from 'vant';
 export default {
   data() {
     return {
-      list: [
-        'Vue-cli4',
-        '配置多环境变量',
-        'VantUI 组件按需加载',
-        'Sass 全局样式',
-        'Webpack 4',
-        'Vuex 状态管理',
-        'Axios 封装及接口管理',
-        'Vue-router',
-        'Webpack 4 vue.config.js 基础配置',
-        '配置 proxy 跨域',
-        '配置 alias 别名',
-        '配置 打包分析',
-        '配置 externals 引入 cdn 资源',
-        '去掉 console.log',
-        'splitChunks 单独打包第三方模块',
-        '添加 IE 兼容',
-        'Eslint+Pettier 统一开发规范'
-      ]
+
     }
   },
 
@@ -41,34 +34,63 @@ export default {
 
   mounted() { },
 
-  methods: {}
+  methods: {
+    handlePeopleClick() {
+      Toast({
+        message: '在线人数：10',
+        position: 'bottom'
+      });
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
 .index-container {
-  .warpper {
-    padding: 12px;
-    background: #fff;
-    .demo-home__title {
-      margin: 0 0 6px;
-      font-size: 32px;
-      .demo-home__title img,
-      .demo-home__title span {
-        display: inline-block;
-        vertical-align: middle;
+  height: 100%;
+  .index-title {
+    height: 64px;
+    padding: 0 0.64rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn {
+      font-size: 14px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+  }
+
+  .wrapper {
+    width: 100%;
+    height: calc(100% - 64px);
+    .new-bg {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .img {
+        display: block;
+        width: 200px;
+        height: 200px;
       }
-      img {
-        width: 32px;
-      }
-      span {
-        margin-left: 16px;
-        font-weight: 500;
+      p {
+        font-size: 20px;
       }
     }
-    .demo-home__desc {
-      margin: 0 0 20px;
-      color: rgba(69, 90, 100, 0.6);
-      font-size: 14px;
+  }
+
+  .start-btn {
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0.1rem;
+    bottom: 48px;
+    .btn {
+      background: $m-primary;
+      color: #fff;
+      font-size: 17px;
     }
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "vue-h5-template",
+  "name": "xiangyu-hnust",
   "version": "2.1.0",
-  "description": "A vue h5 template with Vant UI",
-  "author": "Sunnie <sunniejs@163.com>",
+  "description": "聊天软件",
+  "author": "zfitcode <zfitcode@163.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",

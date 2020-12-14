@@ -16,7 +16,7 @@
 
     </div>
     <div class="start-btn">
-      <van-button size="large" class="btn" to="/chat">快速匹配</van-button>
+      <van-button size="large" class="btn" @click="match">快速匹配</van-button>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     this.getOnlineCount()
     this.timer = setInterval(() => {
       this.getOnlineCount()
-    }, 5000)
+    }, 10000)
   },
   beforeDestroy() {
     clearInterval(this.timer)
@@ -51,8 +51,16 @@ export default {
     },
     getOnlineCount() {
       let message = {
-        type: 'getCount',
+        type: 'GETCOUNT',
       }
+      //序列化json对象为字符串
+      this.handleMsg(JSON.stringify(message));
+    },
+    match() {
+      let message = {
+        type: 'MATCH',
+      }
+      //序列化json对象为字符串
       this.handleMsg(JSON.stringify(message));
     },
     handleMsg(msg) {
@@ -63,7 +71,13 @@ export default {
       }
       that.$global.ws.onmessage = function(res) {
         console.log("收到服务器内容", res);
-        that.count = res.data
+        let msg = JSON.parse(res.data);
+        if (msg.msgType == 'GETCOUNT') {
+          that.count = msg.content
+        } else if (msg.msgType == 'MATCH') {
+          console.log(msg.content)
+          that.$router.push(`/chat/${msg.content}`)
+        }
       };
     }
   }

@@ -43,11 +43,13 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: 'Chat',
   data() {
     return {
-      myId: 2,
+      myId: store.getters.userInfo.id,
       list: [
       ],
       msg: '',
@@ -65,17 +67,25 @@ export default {
     onClickRight() {
     },
     send() {
-      let item = {
+      let content = {
         id: this.myId,
         avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
         msgType: 'text',
         content: this.msg,
         time: new Date()
       }
-      this.list.push(item)
+
+      let message = {
+        type: 'SEND',
+        content,
+        targetId: this.$route.params.id
+      }
+      //序列化json对象为字符串
+      this.handleMsg(JSON.stringify(message));
+      this.list.push(content)
     },
     onLoad() {
-      for (let i = 1; i < 20; i++) {
+      for (let i = 1; i < 0; i++) {
         let item;
         if (i % 2 == 1) {
           item = {
@@ -97,6 +107,20 @@ export default {
         this.list.push(item)
       }
     },
+    handleMsg(msg) {
+      let that = this;
+      if (that.$global.ws && that.$global.ws.readyState == 1) {
+        console.log("发送信息", msg);
+        that.$global.ws.send(msg);
+      }
+      that.$global.ws.onmessage = function(res) {
+        console.log("收到服务器内容", res);
+        let msg = JSON.parse(res.data);
+        if (msg.type == 'SEND') {
+          that.list.push(msg.content)
+        }
+      };
+    }
   }
 }
 </script>

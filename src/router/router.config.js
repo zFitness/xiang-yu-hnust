@@ -32,7 +32,7 @@ export const constantRouterMap = [
     meta: { title: '关于我', keepAlive: false }
   },
   {
-    path: '/chat',
+    path: '/chat/:id',
     component: () => import('@/views/chat/index'),
     meta: { title: '聊天', keepAlive: false }
   },
@@ -40,5 +40,10 @@ export const constantRouterMap = [
     path: '/register',
     component: () => import('@/views/register/index'),
     meta: { title: '注册', keepAlive: false }
+  },
+  {
+    path: '/match',
+    component: () => import('@/views/matching/index'),
+    meta: { title: '匹配', keepAlive: false }
   }
 ]

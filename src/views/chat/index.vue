@@ -13,7 +13,7 @@
     </van-nav-bar>
 
     <div class="message-box">
-      <van-list v-model="loading" :finished="finished" @load="onLoad">
+      <van-list v-model="loading" :finished="finished">
         <div class="message-item" v-for="(item,index) in list" :key="index">
           <div class="message-item-content" v-if="item.id != myId">
             <van-image class="avatar" round width="1rem" height="1rem" :src="item.avatar" />
@@ -58,7 +58,6 @@ export default {
     }
   },
   mounted() {
-    this.onLoad()
   },
   methods: {
     onClickLeft() {
@@ -114,9 +113,10 @@ export default {
         that.$global.ws.send(msg);
       }
       that.$global.ws.onmessage = function(res) {
-        console.log("收到服务器内容", res);
+
         let msg = JSON.parse(res.data);
         if (msg.type == 'SEND') {
+          console.log("收到服务器内容", msg);
           that.list.push(msg.content)
         }
       };
@@ -150,7 +150,7 @@ export default {
     box-sizing: border-box;
     overflow-x: scroll;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     .message-item-content {
       height: 64px;
       display: flex;

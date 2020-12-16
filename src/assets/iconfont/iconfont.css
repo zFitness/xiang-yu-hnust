@@ -12,9 +12,16 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.my-icon-nan:before {
+  content: '\e6ef';
+}
+
+.my-icon-nv:before {
+  content: '\e6f0';
+}
 
 .my-icon-add:before {
-  content: "\e621";
+  content: '\e621';
 }
 
 .my-icon-theme:before {

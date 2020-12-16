@@ -3,7 +3,11 @@
     <div class="info-bg">
       <div class="info">
         <div class="head_card_info">
-          <div class="name">{{userInfo.nickname}}</div>
+          <div class="name">{{userInfo.nickname}}
+
+            <van-icon class-prefix="my-icon" :name="userInfo.gender=='男'?'nan':'nv'" />
+
+          </div>
           <div class="num">email：{{userInfo.email}}</div>
         </div>
         <div class="img">
@@ -39,7 +43,7 @@ export default {
     logout() {
       Dialog.confirm({
         title: '注销',
-        message: '这将清除手机所有记录',
+        message: '这将账号所有记录',
       })
         .then(() => {
           store.dispatch('user/fedLogOut').then(data => {

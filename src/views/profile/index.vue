@@ -17,18 +17,38 @@
       <van-cell title="修改信息" icon="user-o" size="large" is-link />
       <van-cell title="软件设置" icon="setting-o" size="large" is-link />
     </div>
+
+    <div class="logout-btn">
+      <van-button size="large" class="btn" @click="logout">注销</van-button>
+    </div>
   </div>
 </template>
 
 
 <script>
 import store from '@/store'
-
+import { Dialog } from 'vant';
 export default {
   name: 'Profile',
   data() {
     return {
       userInfo: store.getters.userInfo
+    }
+  },
+  methods: {
+    logout() {
+      Dialog.confirm({
+        title: '注销',
+        message: '这将清除手机所有记录',
+      })
+        .then(() => {
+          store.dispatch('user/fedLogOut').then(data => {
+            location.reload()
+          })
+        })
+        .catch(() => {
+          // on cancel
+        });
     }
   }
 }
@@ -74,6 +94,16 @@ export default {
 
   .menu {
     margin-top: 16px;
+  }
+
+  .logout-btn {
+    position: fixed;
+    width: 100%;
+    bottom: 48px;
+    .btn {
+      background: #ff6348;
+      color: #fff;
+    }
   }
 }
 </style>

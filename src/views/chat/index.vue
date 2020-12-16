@@ -1,17 +1,19 @@
 <template>
   <div class="chat-container">
+    <!-- 导航栏 -->
     <van-nav-bar class="nav-bar" @click-left="onClickLeft" left-text="返回" left-arrow>
       <template #title>
-        <div class="title">张三</div>
+        <div class="title">{{matchUser.nickname}}</div>
       </template>
       <template #left @click="onClickLeft">
         <van-icon name="arrow-left" size="18" />
       </template>
       <template #right>
-        <van-icon name="user-o" size="18" />
+        <van-icon name="user-o" size="18" @click="showMatchUser" />
       </template>
     </van-nav-bar>
 
+    <!-- 消息列表 -->
     <div class="message-box">
       <van-list v-model="loading" :finished="finished">
         <div class="message-item" v-for="(item,index) in list" :key="index">
@@ -31,39 +33,71 @@
       </van-list>
     </div>
 
+    <!-- 输入框 -->
     <div class="control-bottom">
       <van-icon class="emoji-btn" name="smile-o" size="20" />
 
-      <van-field class="input" v-model="msg" placeholder="输入消息" />
+      <van-field class="input" v-model="msg" placeholder="输入消息" @keyup.enter="send" />
 
       <van-button class="send-btn" size="small" type="primary" @click="send">发送</van-button>
 
     </div>
+
+    <!-- 用户信息弹出框 -->
+    <van-dialog v-model="showMatchUserInfo" title="对方信息" :overlay="false">
+      <div class="match-user-info">
+        <div class="img">
+          <van-image round width="1.5rem" height="1.5rem" :src="userInfo.avatar" />
+        </div>
+        <div>昵称：{{ matchUser.nickname}}</div>
+        <div>性别：
+          <van-icon class-prefix="my-icon" :name="matchUser.gender=='男'?'nan':'nv'" />
+        </div>
+      </div>
+    </van-dialog>
   </div>
 </template>
 
 <script>
 import store from '@/store'
+import { getUser } from '@/api/user'
 
 export default {
   name: 'Chat',
   data() {
     return {
+      userInfo: store.getters.userInfo,
       myId: store.getters.userInfo.id,
       list: [
       ],
       msg: '',
       loading: false,
       finished: true,
+      matchUser: {},
+      showMatchUserInfo: false
     }
   },
   mounted() {
+    //获取用户信息
+    this.getMatchUser();
+    //发送一个测试信息，否则对方发送的信息将被其他文件的实例接收
     let message = {
       type: 'TEST',
     }
     this.handleMsg(JSON.stringify(message));
   },
   methods: {
+    //得到匹配的人信息
+    getMatchUser() {
+      getUser(this.$route.params.id).then(resp => {
+        console.log(resp)
+        this.matchUser = resp.data.userInfo
+      })
+    },
+    // 显示匹配用户的信息
+    showMatchUser() {
+      this.showMatchUserInfo = true
+    },
     onClickLeft() {
       this.$router.go(-1);
     },
@@ -72,7 +106,7 @@ export default {
     send() {
       let content = {
         id: this.myId,
-        avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        avatar: this.userInfo.avatar,
         msgType: 'text',
         content: this.msg,
         time: new Date()
@@ -86,29 +120,9 @@ export default {
       //序列化json对象为字符串
       this.handleMsg(JSON.stringify(message));
       this.list.push(content)
-    },
-    onLoad() {
-      for (let i = 1; i < 0; i++) {
-        let item;
-        if (i % 2 == 1) {
-          item = {
-            id: 1,
-            avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
-            msgType: 'text',
-            content: `你好，我是一个好人${i}`,
-            time: '2020-11-20 11:11:11'
-          }
-        } else {
-          item = {
-            id: 2,
-            avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
-            msgType: 'text',
-            content: `你好，我是一个好人${i}`,
-            time: '2020-11-20 11:11:11'
-          }
-        }
-        this.list.push(item)
-      }
+
+      //清空输入框
+      this.msg = ''
     },
     handleMsg(msg) {
       let that = this;
@@ -207,6 +221,28 @@ export default {
       padding-right: 16px;
       width: 80px;
     }
+  }
+  .van-dialog {
+    background-color: #f2f3f5;
+    /deep/ .van-button--default {
+      color: rgba(0, 0, 0, 0.7) !important;
+      background: #f2f3f5 !important;
+    }
+  }
+  // 用户信息弹出框
+  .match-user-info {
+    .img {
+      background: #fff;
+      border-radius: 50%;
+      width: 1.55rem;
+      height: 1.55rem;
+      margin: 12px auto;
+    }
+    div {
+      margin-bottom: 12px;
+    }
+    padding: 0.32rem;
+    font-size: 18px;
   }
 }
 </style>

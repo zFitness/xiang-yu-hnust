@@ -120,7 +120,7 @@ export default {
             message: `匹配成功`,
             position: 'bottom'
           });
-          that.$router.push(`/chat/${msg.content}`)
+          that.$router.replace(`/chat/${msg.content}`)
         }
       };
     }

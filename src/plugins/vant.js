@@ -12,7 +12,8 @@ import {
   Tabbar,
   TabbarItem,
   NavBar,
-  CellGroup
+  CellGroup,
+  Dialog
 } from 'vant'
 Vue.use(Button)
 Vue.use(Cell)
@@ -25,3 +26,4 @@ Vue.use(Tabbar).use(TabbarItem)
 Vue.use(Cell).use(CellGroup)
 Vue.use(Radio)
 Vue.use(RadioGroup)
+Vue.use(Dialog)

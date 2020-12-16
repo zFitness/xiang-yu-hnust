@@ -7,7 +7,8 @@ export function register(data) {
   return request({
     url: '/user/register',
     method: 'post',
-    data
+    data,
+    hideloading: false
   })
 }
 
@@ -16,7 +17,16 @@ export function login(params) {
   return request({
     url: '/user/login',
     method: 'post',
-    params
+    params,
+    hideloading: false
+  })
+}
+
+export function getUser(id) {
+  return request({
+    url: `/user/${id}`,
+    method: 'get',
+    hideloading: false
   })
 }
 

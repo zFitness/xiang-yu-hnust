@@ -69,9 +69,9 @@ export default {
       that.$global.ws.onmessage = function(res) {
         console.log("收到服务器内容", res);
         let msg = JSON.parse(res.data);
-        if (msg.msgType == 'GETCOUNT') {
+        if (msg.type == 'GETCOUNT') {
           that.count = msg.content
-        } else if (msg.msgType == 'MATCH') {
+        } else if (msg.type == 'MATCH') {
           console.log(msg.content)
           that.$router.push(`/chat/${msg.content}`)
         }

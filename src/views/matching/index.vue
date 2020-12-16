@@ -46,13 +46,17 @@ export default {
       if (n > 360) {
         this.hintFailure()
       }
+      //2秒后才发送匹配请求
+      if (n > 2) {
+        // 发送匹配请求
+        this.match();
+      }
       n++;
       let m = parseInt(n / 60);
       let s = parseInt(n % 60);
       this.time = this.toDub(m) + ":" + this.toDub(s);
     }, 1000);
-    // 发送匹配请求
-    this.match();
+
   },
   beforeDestroy() {
     //清除定时器
@@ -112,9 +116,9 @@ export default {
       that.$global.ws.onmessage = function(res) {
         console.log("收到服务器内容", res);
         let msg = JSON.parse(res.data);
-        if (msg.msgType == 'GETCOUNT') {
+        if (msg.type == 'GETCOUNT') {
           that.count = msg.content
-        } else if (msg.msgType == 'MATCH') {
+        } else if (msg.type == 'MATCH') {
           console.log(msg.content)
           Toast({
             message: `匹配成功`,

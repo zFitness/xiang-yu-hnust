@@ -37,7 +37,7 @@
     <div class="control-bottom">
       <van-icon class="emoji-btn" name="smile-o" size="20" />
 
-      <van-field class="input" v-model="msg" placeholder="输入消息" @keyup.enter="send" />
+      <van-field class="input" v-model="msg" placeholder="输入消息" @keyup.enter="send" :disabled="disabled" />
 
       <van-button class="send-btn" size="small" type="primary" @click="send">发送</van-button>
 
@@ -47,7 +47,7 @@
     <van-dialog v-model="showMatchUserInfo" title="对方信息" :overlay="false">
       <div class="match-user-info">
         <div class="img">
-          <van-image round width="1.5rem" height="1.5rem" :src="userInfo.avatar" />
+          <van-image round width="1.5rem" height="1.5rem" :src="matchUser.avatar" />
         </div>
         <div>昵称：{{ matchUser.nickname}}</div>
         <div>性别：
@@ -61,6 +61,7 @@
 <script>
 import store from '@/store'
 import { getUser } from '@/api/user'
+import { Dialog, Toast } from 'vant';
 
 export default {
   name: 'Chat',
@@ -74,7 +75,9 @@ export default {
       loading: false,
       finished: true,
       matchUser: {},
-      showMatchUserInfo: false
+      showMatchUserInfo: false,
+      // 禁用输入
+      disabled: false
     }
   },
   mounted() {
@@ -99,11 +102,25 @@ export default {
       this.showMatchUserInfo = true
     },
     onClickLeft() {
+      //如果对方没有退出，
+      if (this.disabled == false) {
+        this.quit();
+      }
       this.$router.go(-1);
     },
-    onClickRight() {
+    //退出聊天，通知对方
+    quit() {
+      let message = {
+        type: 'QUIT',
+        targetId: this.$route.params.id
+      }
+      //序列化json对象为字符串
+      this.handleMsg(JSON.stringify(message));
     },
     send() {
+      if (this.msg == '') {
+        return
+      }
       let content = {
         id: this.myId,
         avatar: this.userInfo.avatar,
@@ -131,11 +148,18 @@ export default {
         that.$global.ws.send(msg);
       }
       that.$global.ws.onmessage = function(res) {
-
         let msg = JSON.parse(res.data);
+        console.log("收到服务器内容", msg);
         if (msg.type == 'SEND') {
-          console.log("收到服务器内容", msg);
           that.list.push(msg.content)
+        } else if (msg.type == 'QUIT') {
+          that.msg = ''
+          that.disabled = true
+          Toast({
+            message: `对方已经离开`,
+            position: 'bottom'
+          });
+
         }
       };
     }

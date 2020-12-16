@@ -58,6 +58,10 @@ export default {
     }
   },
   mounted() {
+    let message = {
+      type: 'TEST',
+    }
+    this.handleMsg(JSON.stringify(message));
   },
   methods: {
     onClickLeft() {

@@ -77,7 +77,8 @@ export default {
           'email': ''
         }
         store.dispatch('user/registerUser', userInfo).then(data => {
-          this.$router.push('/')
+          location.reload()
+          // this.$router.push('/')
         })
       } else {
         Toast.fail('请填写完整');

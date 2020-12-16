@@ -5,7 +5,7 @@
 </template>
 <script>
 import store from '@/store'
-
+import { wsBaseApi } from '@/config'
 export default {
   name: 'App',
   methods: {
@@ -14,7 +14,7 @@ export default {
       if ("WebSocket" in window) {
         console.log("您的浏览器支持 WebSocket!");
 
-        that.ws = new WebSocket(`ws://localhost:8099/chat/${store.getters.userInfo.id}`);
+        that.ws = new WebSocket(`${wsBaseApi}/chat/${store.getters.userInfo.id}`);
         that.$global.setWs(that.ws);
         that.ws.onopen = function() {
           console.log('websocket连接成功');

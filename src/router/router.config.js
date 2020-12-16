@@ -42,6 +42,11 @@ export const constantRouterMap = [
     meta: { title: '注册', keepAlive: false }
   },
   {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    meta: { title: '登录', keepAlive: false }
+  },
+  {
     path: '/match',
     component: () => import('@/views/matching/index'),
     meta: { title: '匹配', keepAlive: false }

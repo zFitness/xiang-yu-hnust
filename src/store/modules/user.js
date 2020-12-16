@@ -9,7 +9,7 @@ import {
   loadToken,
   loadUserInfo
 } from '@/utils/cache'
-import { register } from '@/api/user'
+import { register, login } from '@/api/user'
 
 const state = {
   loginStatus: loadLoginStatus(), // 登录状态
@@ -36,11 +36,36 @@ const actions = {
       register(userInfo)
         .then(resp => {
           console.log(resp)
-          // 存用户信息，token
-          dispatch('setLoginStatus', 1)
-          commit('SET_USERINFO', saveUserInfo(resp.data.userInfo))
-          commit('SET_TOKEN', saveToken('xxx'))
-          resolve('success')
+          if (resp.code == 200) {
+            // 存用户信息，token
+            dispatch('setLoginStatus', 1)
+            commit('SET_USERINFO', saveUserInfo(resp.data.userInfo))
+            commit('SET_TOKEN', saveToken('xxx'))
+            resolve('success')
+          } else {
+            reject(resp)
+          }
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  },
+  // 登陆，保存到本地
+  login({ commit, dispatch }, params) {
+    return new Promise((resolve, reject) => {
+      login(params)
+        .then(resp => {
+          console.log(resp)
+          if (resp.code == 200) {
+            // 存用户信息，token
+            dispatch('setLoginStatus', 1)
+            commit('SET_USERINFO', saveUserInfo(resp.data.userInfo))
+            commit('SET_TOKEN', saveToken('xxx'))
+            resolve('success')
+          } else {
+            reject(resp)
+          }
         })
         .catch(err => {
           reject(err)

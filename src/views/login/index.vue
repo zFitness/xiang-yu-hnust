@@ -1,7 +1,7 @@
 <template>
   <div class="register-container">
     <div class="index-title">
-      <h3>注册</h3>
+      <h3>登陆</h3>
     </div>
     <div class="title-img">
       <img src="https://img.zmblog.wang/blog/20201214/VhSAHxLBxSfb.png?imageslim" width="250px" alt="">
@@ -15,24 +15,11 @@
         <p>密码</p>
         <van-field class="input" type="password" v-model="password" left-icon="user-o" placeholder="请输入密码" />
       </div>
-      <div class="form-sex">
-        <p>性别</p>
-        <van-radio-group v-model="gender" direction="horizontal" class="sex-item-wrapper">
-          <div class="sex-item">
-            <van-radio name="男">男</van-radio>
-            <img :src="maleAvatar" width="67" height="67" alt="">
-          </div>
-          <div class="sex-item">
-            <van-radio name="女">女</van-radio>
-            <img :src="femaleAvatar" width="67" height="67" alt="">
-          </div>
-        </van-radio-group>
-      </div>
     </div>
 
     <div class="register-btn">
-      <van-button size="large" class="btn" @click="createUser">创建</van-button>
-      <div class="hint-text" @click="$router.push('/login')">已经有账号，登陆?</div>
+      <van-button size="large" class="btn" @click="createUser">登录</van-button>
+      <div class="hint-text" @click="$router.push('/register')">没有账号，注册?</div>
     </div>
   </div>
 </template>
@@ -44,7 +31,7 @@ import { Toast } from 'vant';
 
 
 export default {
-  name: 'Register',
+  name: 'Login',
   data() {
     return {
       maleAvatar: 'https://img.zmblog.wang/blog/20201214/urB3BW6822nv.png?imageslim',
@@ -72,12 +59,9 @@ export default {
       if (this.nickname != '' && this.password != '') {
         let userInfo = {
           'nickname': this.nickname,
-          'password': this.password,
-          'avatar': this.avatar,
-          'gender': this.gender,
-          'email': ''
+          'password': this.password
         }
-        store.dispatch('user/registerUser', userInfo).then(data => {
+        store.dispatch('user/login', userInfo).then(data => {
           location.reload()
         }).catch(error => {
           Toast.fail(error.message);
@@ -124,18 +108,6 @@ export default {
         border-radius: 24px;
       }
     }
-    .sex-item-wrapper {
-      display: flex;
-      justify-content: space-around;
-    }
-    .form-sex {
-      p {
-        font-size: 16px;
-      }
-      .sex-item {
-        display: flex;
-      }
-    }
   }
 
   .register-btn {
@@ -150,7 +122,7 @@ export default {
     }
     .hint-text {
       font-size: 15px;
-      margin-top: 16px;
+      margin-top: 15px;
     }
   }
 }

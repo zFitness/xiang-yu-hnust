@@ -11,6 +11,15 @@ export function register(data) {
   })
 }
 
+// 登录
+export function login(params) {
+  return request({
+    url: '/user/login',
+    method: 'post',
+    params
+  })
+}
+
 // 用户信息 post 方法
 export function getUserInfo(data) {
   return request({

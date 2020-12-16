@@ -58,11 +58,7 @@ export default {
       this.handleMsg(JSON.stringify(message));
     },
     match() {
-      let message = {
-        type: 'MATCH',
-      }
-      //序列化json对象为字符串
-      this.handleMsg(JSON.stringify(message));
+      this.$router.push('/match')
     },
     handleMsg(msg) {
       let that = this;

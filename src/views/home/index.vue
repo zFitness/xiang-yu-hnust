@@ -10,7 +10,7 @@
     </div>
     <div class="wrapper">
       <div class="new-bg">
-        <img class="img" src="https://img.zmblog.wang/blog/20201214/kFYutJ9gP6Fv.png?imageslim" alt="">
+        <img class="img" src="../../assets/img/chat2.png" alt="">
         <p>开始一个新的聊天</p>
       </div>
 

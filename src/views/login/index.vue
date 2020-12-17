@@ -4,7 +4,7 @@
       <h3>登陆</h3>
     </div>
     <div class="title-img">
-      <img src="https://img.zmblog.wang/blog/20201214/VhSAHxLBxSfb.png?imageslim" width="250px" alt="">
+      <img src="../../assets/img/title.png" width="250px" alt="">
     </div>
     <div class="form">
       <div class="form-name">

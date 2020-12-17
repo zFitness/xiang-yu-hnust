@@ -4,7 +4,7 @@
       <h3>注册</h3>
     </div>
     <div class="title-img">
-      <img src="https://img.zmblog.wang/blog/20201214/VhSAHxLBxSfb.png?imageslim" width="250px" alt="">
+      <img src="../../assets/img/title.png" width="250px" alt="">
     </div>
     <div class="form">
       <div class="form-name">
@@ -20,11 +20,11 @@
         <van-radio-group v-model="gender" direction="horizontal" class="sex-item-wrapper">
           <div class="sex-item">
             <van-radio name="男">男</van-radio>
-            <img :src="maleAvatar" width="67" height="67" alt="">
+            <img src="../../assets/img/nan.png" width="67" height="67" alt="">
           </div>
           <div class="sex-item">
             <van-radio name="女">女</van-radio>
-            <img :src="femaleAvatar" width="67" height="67" alt="">
+            <img src="../../assets/img/nv.png" width="67" height="67" alt="">
           </div>
         </van-radio-group>
       </div>

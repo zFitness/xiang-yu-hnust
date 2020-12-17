@@ -13,7 +13,8 @@ import {
   TabbarItem,
   NavBar,
   CellGroup,
-  Dialog
+  Dialog,
+  Divider
 } from 'vant'
 Vue.use(Button)
 Vue.use(Cell)
@@ -27,3 +28,4 @@ Vue.use(Cell).use(CellGroup)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Dialog)
+Vue.use(Divider)

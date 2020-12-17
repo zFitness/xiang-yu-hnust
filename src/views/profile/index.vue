@@ -1,30 +1,45 @@
 <template>
   <div class="profile-container">
+    <!-- 资料背景 -->
     <div class="info-bg">
       <div class="info">
-        <div class="head_card_info">
-          <div class="name">{{userInfo.nickname}}
-
-            <van-icon class-prefix="my-icon" :name="userInfo.gender=='男'?'nan':'nv'" />
-
-          </div>
-          <div class="num">email：{{userInfo.email}}</div>
-        </div>
         <div class="img">
           <van-image round width="1.5rem" height="1.5rem" :src="userInfo.avatar" />
         </div>
-
+        <div class="head_card_info">
+          <div class="name">{{userInfo.nickname}}
+            <van-icon class-prefix="my-icon" :name="userInfo.gender=='男'?'nan':'nv'" />
+          </div>
+        </div>
       </div>
     </div>
-
+    <!-- 菜单 -->
     <div class="menu">
-      <van-cell title="修改信息" icon="user-o" size="large" is-link />
-      <van-cell title="软件设置" icon="setting-o" size="large" is-link />
-    </div>
+      <van-cell title="修改信息" icon="user-o" size="large" :border="false" />
+      <van-cell title="关于作者" icon="info-o" size="large" :border="false" @click="aboutAuthor" />
+      <van-divider />
+      <van-cell-group :border="false">
+        <van-cell title="设置" icon="setting-o" size="large" :border="false" />
+        <van-cell title="检查更新" icon="upgrade" size="large" :border="false" />
+      </van-cell-group>
 
+    </div>
+    <!-- 注销按钮 -->
     <div class="logout-btn">
       <van-button size="large" class="btn" @click="logout">注销</van-button>
     </div>
+
+    <!-- 作者弹出框 -->
+    <van-dialog v-model="authorShow" title="关于">
+      <div class="dialog-content-wrapper">
+        <div>
+          开发者：zfitcode
+        </div>
+        <div>
+          邮箱：zfitcode@163.com
+        </div>
+      </div>
+    </van-dialog>
   </div>
 </template>
 
@@ -36,10 +51,14 @@ export default {
   name: 'Profile',
   data() {
     return {
-      userInfo: store.getters.userInfo
+      userInfo: store.getters.userInfo,
+      authorShow: false
     }
   },
   methods: {
+    aboutAuthor() {
+      this.authorShow = true
+    },
     logout() {
       Dialog.confirm({
         title: '注销',
@@ -62,7 +81,7 @@ export default {
 .profile-container {
   .info-bg {
     width: 100%;
-    height: 160px;
+    height: 200px;
     background: #52a7fc;
     padding: 0.64rem;
     box-sizing: border-box;
@@ -73,8 +92,8 @@ export default {
     justify-content: center;
     .info {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
       .name {
         font-size: 20px;
       }
@@ -91,6 +110,7 @@ export default {
         overflow: hidden;
         align-items: center;
         // -webkit-animation: living 3s linear infinite;
+        margin-bottom: 16px;
       }
     }
   }
@@ -106,6 +126,13 @@ export default {
     .btn {
       background: #ff6348;
       color: #fff;
+    }
+  }
+
+  .dialog-content-wrapper {
+    padding: 0.32rem;
+    div {
+      margin-bottom: 10px;
     }
   }
 }

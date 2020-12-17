@@ -203,6 +203,10 @@ export default {
         padding: 0.32rem;
         border-radius: 4px;
         margin-left: 4px;
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow-x: hidden;
+        font-size: 16px;
       }
     }
 
@@ -217,7 +221,11 @@ export default {
         color: #fff;
         padding: 0.32rem;
         border-radius: 4px;
-        margin-right: 4px;
+        margin-left: 4px;
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow-x: hidden;
+        font-size: 16px;
       }
     }
   }

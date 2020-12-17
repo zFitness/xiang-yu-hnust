@@ -159,7 +159,6 @@ export default {
             message: `对方已经离开`,
             position: 'bottom'
           });
-
         }
       };
     }

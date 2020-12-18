@@ -123,6 +123,8 @@ export default {
     position: fixed;
     width: 100%;
     bottom: 48px;
+    padding: 0 0.1rem;
+    box-sizing: border-box;
     .btn {
       background: #ff6348;
       color: #fff;

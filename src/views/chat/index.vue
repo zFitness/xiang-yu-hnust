@@ -19,15 +19,17 @@
         <div class="message-item" v-for="(item,index) in list" :key="index">
           <div class="message-item-content" v-if="item.id != myId">
             <van-image class="avatar" round width="1rem" height="1rem" :src="item.avatar" @click="showMatchUserInfo = true" />
-            <div class="message-content">
+            <div class="message-content" v-if="item.msgType == 'text'">
               {{item.content}}
             </div>
+            <div class="message-music-content" v-if="item.msgType == 'music'" v-html="item.content" />
           </div>
           <div class="message-item-content-me" v-else>
             <van-image class="avatar" round width="1rem" height="1rem" :src="item.avatar" />
-            <div class="message-content">
+            <div class="message-content" v-if="item.msgType == 'text'">
               {{item.content}}
             </div>
+            <div class="message-music-content" v-if="item.msgType == 'music'" v-html="item.content" />
           </div>
         </div>
       </van-list>
@@ -60,12 +62,7 @@
           </div>
           <div>视频</div>
         </div>
-        <div class="tools-item">
-          <div class="tools-item-img">
-            <van-icon name="photo-o" size="22px" />
-          </div>
-          <div>音乐</div>
-        </div>
+        <tools-music v-if="userInfo != null" :userInfo="userInfo" @send="handleMusicSend" />
         <div class="tools-item">
           <div class="tools-item-img">
             <van-icon name="photo-o" size="22px" />
@@ -93,6 +90,7 @@
         </div>
       </div>
     </van-dialog>
+
   </div>
 </template>
 

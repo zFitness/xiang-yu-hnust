@@ -1,5 +1,5 @@
-// let domain = "localhost"
-let domain = '192.168.123.13'
+let domain = 'localhost'
+// let domain = '192.168.123.13'
 
 // 本地环境配置
 module.exports = {

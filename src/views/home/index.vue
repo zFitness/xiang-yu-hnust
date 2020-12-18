@@ -58,7 +58,7 @@ export default {
       this.handleMsg(JSON.stringify(message));
     },
     match() {
-      this.$router.push('/match')
+      this.$router.replace('/match')
     },
     handleMsg(msg) {
       let that = this;

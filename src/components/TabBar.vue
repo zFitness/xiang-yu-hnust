@@ -1,7 +1,7 @@
 <template>
   <van-tabbar fixed route class="tabbar">
-    <van-tabbar-item icon="chat-o" to="/home"></van-tabbar-item>
-    <van-tabbar-item icon="user-o" to="/profile"></van-tabbar-item>
+    <van-tabbar-item icon="chat-o" to="/home" replace></van-tabbar-item>
+    <van-tabbar-item icon="user-o" to="/profile" replace></van-tabbar-item>
   </van-tabbar>
 </template>
 <script>

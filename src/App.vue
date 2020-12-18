@@ -40,6 +40,8 @@ export default {
     if (store.getters.userInfo.id != undefined || store.getters.userInfo.id != null) {
       this.localSocket()
     }
+
+
   }
 }
 </script>

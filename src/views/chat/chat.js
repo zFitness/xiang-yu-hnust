@@ -2,6 +2,8 @@ import store from '@/store'
 import { getUser } from '@/api/user'
 import { Dialog, Toast } from 'vant'
 import { emoji } from '@/utils/emoji'
+import ToolsMusic from './components/ToolsMusic.vue'
+
 export default {
   name: 'Chat',
   data() {
@@ -21,6 +23,9 @@ export default {
       emojiTools: false
     }
   },
+  components: {
+    ToolsMusic
+  },
   mounted() {
     //获取用户信息
     this.getMatchUser()
@@ -31,6 +36,20 @@ export default {
     this.handleMsg(JSON.stringify(message))
   },
   methods: {
+    // 发送音乐
+    handleMusicSend(content) {
+      let message = {
+        type: 'SEND',
+        content,
+        targetId: this.$route.params.id
+      }
+      //序列化json对象为字符串
+      this.handleMsg(JSON.stringify(message))
+      this.list.push(content)
+
+      //清空输入框
+      this.msg = ''
+    },
     // 打开emoji栏
     openEmoji() {
       this.emojiShow = !this.emojiShow

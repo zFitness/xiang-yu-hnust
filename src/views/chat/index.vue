@@ -41,7 +41,7 @@
         <van-icon class="emoji-btn" name="add-o" size="28" @click="openTools" />
         <van-field class="input" v-model="msg" placeholder="输入消息" @keyup.enter="send" :disabled="disabled" @click="closeTools" />
         <van-icon class="emoji-btn" name="smile-o" size="28" @click="openEmoji" style="margin-right:8px" />
-        <van-button class="send-btn" size="small" type="primary" @click="send">发送</van-button>
+        <van-button class="send-btn" size="small" type="primary" @click="send" :color="disabled?'#D9DDDD':''">发送</van-button>
       </div>
       <!-- 表情框 -->
       <div class="control-emoji" v-if="emojiShow">

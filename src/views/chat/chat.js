@@ -34,6 +34,29 @@ export default {
       type: 'TEST'
     }
     this.handleMsg(JSON.stringify(message))
+
+    // 如果支持 popstate 一般移动端都支持了
+    if (window.history && window.history.pushState) {
+      // 往历史记录里面添加一条新的当前页面的url
+      history.pushState(null, null, document.URL)
+      // 给 popstate 绑定一个方法 监听页面刷新
+      window.addEventListener(
+        'popstate',
+        () => {
+          this.onClickLeft()
+        },
+        false
+      ) //false阻止默认事件
+    }
+  },
+  beforeDestory() {
+    window.removeEventListener(
+      'popstate',
+      () => {
+        console.log('解绑popstate事件监听')
+      },
+      false
+    )
   },
   methods: {
     // 发送音乐
@@ -79,11 +102,20 @@ export default {
       this.showMatchUserInfo = true
     },
     onClickLeft() {
-      //如果对方没有退出，
-      if (this.disabled == false) {
-        this.quit()
-      }
-      this.$router.go(-1)
+      Dialog.confirm({
+        title: '退出',
+        message: '确认退出?'
+      })
+        .then(() => {
+          //如果对方没有退出，
+          if (this.disabled == false) {
+            this.quit()
+          }
+          this.$router.replace('/')
+        })
+        .catch(() => {
+          // on cancel
+        })
     },
     //退出聊天，通知对方
     quit() {

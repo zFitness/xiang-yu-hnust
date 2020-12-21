@@ -34,7 +34,11 @@
             </div>
             <!-- 图片 -->
             <div class="message-music-content" v-if="item.msgType == 'music'"
-                 v-html="item.content" />
+                 v-html="item.content">
+              <van-image width="100px" height="100px" fit="contain"
+                         :src="item.content"
+                         @click="previewImg(item.content)" />
+            </div>
           </div>
           <!-- 自己发送的消息 -->
           <div class="message-item-content-me" v-else>
@@ -47,7 +51,9 @@
                  v-html="item.content" />
             <div class="message-img-content" v-if="item.msgType == 'img'">
               <!-- <img :src="item.content" alt="" srcset=""> -->
-              <van-image width="100px" fit="fill" :src="item.content" />
+              <van-image width="100px" height="100px" fit="contain"
+                         :src="item.content"
+                         @click="previewImg(item.content)" />
             </div>
           </div>
         </div>

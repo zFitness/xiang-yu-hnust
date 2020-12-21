@@ -4,6 +4,7 @@ import { Dialog, Toast } from 'vant'
 import { emoji } from '@/utils/emoji'
 import ToolsMusic from './components/ToolsMusic.vue'
 import ToolsImg from './components/ToolsImg.vue'
+import { ImagePreview } from 'vant'
 
 export default {
   name: 'Chat',
@@ -61,6 +62,10 @@ export default {
     )
   },
   methods: {
+    //预览图片
+    previewImg(img) {
+      ImagePreview([img])
+    },
     //发送图片
     handleImgSend(content) {
       let message = {

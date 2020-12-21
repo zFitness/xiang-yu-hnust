@@ -7,9 +7,11 @@
       <div>音乐</div>
     </div>
     <!-- 网易云音乐弹出框 -->
-    <van-dialog v-model="showMusicDialog" title="发送音乐" :overlay="false" show-cancel-button>
+    <van-dialog v-model="showMusicDialog" title="发送音乐" :overlay="false"
+                show-cancel-button>
       <van-list finished-text="没有更多了" class="music-box">
-        <div v-for="(item,index) in list" :key="index" class="music-item" @click="send(item.musicId)">
+        <div v-for="(item,index) in list" :key="index" class="music-item"
+             @click="send(item.musicId)">
           <div>{{item.title}}</div>
           <div>{{item.author}}</div>
         </div>
@@ -26,7 +28,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       //音乐弹框
       showMusicDialog: false,
@@ -46,7 +48,7 @@ export default {
     }
   },
   methods: {
-    send(id) {
+    send (id) {
       if (this.musicId == '') {
         return
       }
@@ -58,9 +60,6 @@ export default {
         content: musicUrl,
         time: new Date()
       }
-
-
-
       this.$emit("send", content)
     },
   }

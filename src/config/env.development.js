@@ -7,6 +7,7 @@ module.exports = {
   baseUrl: 'http://localhost:9020', // 项目地址
   baseApi: `http://${domain}:8099`,
   wsBaseApi: `ws://${domain}:8099`, //websocket 地址
+  qiNiuUrl: 'https://img.zmblog.wang',
   APPID: 'xxx',
   APPSECRET: 'xxx',
   $cdn: 'https://www.sunniejs.cn/static'

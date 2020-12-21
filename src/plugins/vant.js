@@ -14,7 +14,8 @@ import {
   NavBar,
   CellGroup,
   Dialog,
-  Divider
+  Divider,
+  Uploader
 } from 'vant'
 Vue.use(Button)
 Vue.use(Cell)
@@ -29,3 +30,4 @@ Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(Dialog)
 Vue.use(Divider)
+Vue.use(Uploader)

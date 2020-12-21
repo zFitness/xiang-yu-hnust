@@ -30,7 +30,6 @@
       border: 2px solid #fff;
     }
     .message-item-content {
-      height: 64px;
       display: flex;
       padding: 0.1rem;
       align-items: center;
@@ -47,11 +46,11 @@
     }
 
     .message-item-content-me {
-      height: 64px;
       display: flex;
       flex-direction: row-reverse;
       padding: 0.1rem;
       align-items: center;
+      // 文字消息
       .message-content {
         background: #198afa;
         color: #fff;
@@ -63,6 +62,15 @@
         overflow-x: hidden;
         font-size: 16px;
         margin-right: 8px;
+      }
+      // 图片消息
+      .message-img-content {
+        margin-left: 4px;
+        // img {
+        //   display: block;
+        //   width: 100px;
+        //   height: 100px;
+        // }
       }
     }
   }
